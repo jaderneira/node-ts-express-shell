@@ -1,0 +1,13 @@
+@host = http://localhost:3000/api
+
+### Get Products
+GET {{host}}/categories/
+content-type: application/json
+
+
+
+### Register
+POST {{host}}/categories/
+content-type: application/json
+
+
