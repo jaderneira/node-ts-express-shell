@@ -1,4 +1,5 @@
 @host = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmQyZjY0M2NiY2IyYzFmNThmYjc3MiIsImlhdCI6MTc0MDYyNTMxNiwiZXhwIjoxNzQwNjMyNTE2fQ.JmWFQc4uGQ10bws75K8Ud5AqXEsbQxACGD8mNURYXK4
 
 ### Get Products
 GET {{host}}/categories/
@@ -8,6 +9,16 @@ content-type: application/json
 
 ### Register
 POST {{host}}/categories/
+content-type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Hot Chocolate 20",
+  "description": "description"
+}
+
+### List
+GET {{host}}/categories?limit=3&page=3
 content-type: application/json
 
 
