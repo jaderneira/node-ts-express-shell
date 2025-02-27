@@ -1,4 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
+import { JwtAdapter } from '../../config/jwt.adapter';
+import { UserModel } from '../../data/mongo/models/user.model';
+import { UserEntity } from '../../domain/entities/user.entity';
 
 
 
@@ -13,6 +16,18 @@ export class AuthMiddleware {
     const token = authorizarion.split(' ').at(-1) || '';
 
     try {
+
+      const payload = await JwtAdapter.validateToken<{id: string}>(token);
+      if(!payload) return res.status(401).json({ error: 'Unauthorized' });
+
+      const user = await UserModel.findById(payload.id);
+      if(!user) return res.status(401).json({ error: 'Unauthorized' });
+
+      //TODO: Validate activer user
+
+      req.body.user = UserEntity.fromJSON(user);
+
+      next();
       
     } catch (error) {
       console.log(error);
